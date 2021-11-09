@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Library from './components/Library';
 import Player from './components/Player';
 import Song from './components/Song';
@@ -7,14 +7,12 @@ import data from './data'
 import Nav from './components/Nav'
 
 
-
-
 const App = () => {
 
 	const audioRef = useRef(null)
 
 	const [songs, setSongs] = useState(data());
-	const [currentSong, setCurrentSong] = useState(songs[0]);
+	const [currentSong, setCurrentSong] = useState(JSON.parse(localStorage.getItem('song')) ? JSON.parse(localStorage.getItem('song')) : songs[0]);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [songInfo, setSongInfo] = useState({
 		currentTime: 0,
@@ -43,7 +41,31 @@ const App = () => {
 		if (isPlaying) audioRef.current.play()
 	}
 
+	//Search in Lib
+
+	const search = (items, term) => {
+		if (term.length === 0) {
+			return items;
+		}
+
+		return items.filter((item) => {
+			return (item.name.toLowerCase().indexOf(term.toLowerCase()) > -1 || item.artist.toLowerCase().indexOf(term.toLowerCase()) > -1);
+		})
+	}
+
+	const [term, setTerm] = useState('')
+	const visibleItems = search(songs, term)
+
 	
+	useEffect(() => {
+		const songsData = data();
+		songsData.find(song => song.id === currentSong.id).active = true;
+		setSongs(songsData)
+	}, [term, currentSong])
+
+	// console.log(songs, 'songs')
+	// console.log(currentSong, 'currentSong')
+
 
 	return (
 		<div className={`App ${libraryStatus ? 'library-active' : ''}`}>
@@ -56,12 +78,15 @@ const App = () => {
 				isPlaying={isPlaying} 
 				setIsPlaying={setIsPlaying} 
 				currentSong={currentSong} 
-				songs={songs}
+				songs={visibleItems}
 				setCurrentSong={setCurrentSong} 
 				setSongs={setSongs}
 			/>
-			<Library 
-				songs={songs} 
+			<Library
+				currentSong={currentSong}
+				term={term} 
+				setTerm={setTerm}
+				songs={visibleItems} 
 				setCurrentSong={setCurrentSong} 
 				audioRef={audioRef} 
 				isPlaying={isPlaying}
@@ -81,3 +106,4 @@ const App = () => {
 }
 
 export default App;
+

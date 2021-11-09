@@ -1,7 +1,8 @@
 
-const LibrarySong = ({song, songs, setCurrentSong, audioRef, isPlaying, setSongs}) => {
+const LibrarySong = ({song, songs, setCurrentSong, audioRef, isPlaying, setSongs, currentSong}) => {
 
 	const songSelectHandler = async () => {
+		localStorage.setItem('song', JSON.stringify(song))
 		await setCurrentSong(song)
 		const newSongs = songs.map(track => {
 			if (track.id === song.id) {
@@ -22,6 +23,8 @@ const LibrarySong = ({song, songs, setCurrentSong, audioRef, isPlaying, setSongs
 		if (isPlaying) audioRef.current.play()
 
 	}
+
+	// console.log(songs)
 
 	return (
 		<div onClick={songSelectHandler} className={`library-song ${song.active ? 'selected' : ''}`}>

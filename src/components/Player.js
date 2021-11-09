@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -24,6 +24,7 @@ const Player = ({
   const activeLibraryHandler = (nextPrev) => {
     const newSongs = songs.map((song) => {
       if (song.id === nextPrev.id) {
+	  localStorage.setItem('song', JSON.stringify(song))
         return {
           ...song,
           active: true,

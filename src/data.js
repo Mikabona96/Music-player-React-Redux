@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from "uuid";
+// import {v4 as uuidv4} from "uuid";
 import Dua from './music/Dua.mp3'
 import KALEO from './music/KALEO.mp3'
 import Harris from './music/Harris.mp3'
@@ -12,8 +12,8 @@ function chillHop() {
 			artist: "Dua Lipa",
 			audio: Dua,
 			color: ["#51C0E4", "#EBEBEB"],
-			id: uuidv4(),
-			active: true,
+			id: 1,
+			active: false,
 		},
 		{
 			name: "Hey Gringo",
@@ -22,7 +22,7 @@ function chillHop() {
 			artist: "KALEO",
 			audio: KALEO,
 			color: ["#9C4618", "#A6B1B9"],
-			id: uuidv4(),
+			id: 2,
 			active: false,
 		},
 		{
@@ -32,7 +32,7 @@ function chillHop() {
 			artist: " Calvin Harris & Rag'n'Bone Man",
 			audio: Harris,
 			color: ["#25152B", "#201328"],
-			id: uuidv4(),
+			id: 3,
 			active: false,
 		},
 		{
@@ -42,7 +42,7 @@ function chillHop() {
 			artist: "DVRST",
 			audio: "https://cf-media.sndcdn.com/QuY4lAs1Rksz.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20vUXVZNGxBczFSa3N6LjEyOC5tcDMqIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNjM2MDU1MjQ2fX19XX0_&Signature=ENzQ0P1-S1yn4hq5Arx3CzdvrGc-366Q2Vg8vimeKfsHzBUJWTzQQTgayCs148YleCtQl3clbJCIqQUlpnsZfrfudzVXRMlHHUosgr9JTYpPowlis~by7UZm9OPwzaOqxV8dLVc891bQxOpTUxh2WADaQvqyv78V--FjRv6SNFH6wLAbTW1Dn-4lgMkPGVjCqaF9NJ5hZBEXfct7M4tzZnffUur4c7gf7No91UoKLY72duMHhA9Z~yy9cE22RbJKZy9zUasVeR9QUNPdyyiuTxgdcDKPtYX6~LAFA6g5L8HA0SvtEJVuudnMLtnfdn4MhROnmH57uKGNANo-0ILC0w__&Key-Pair-Id=APKAI6TU7MMXM5DG6EPQ",
 			color: ["#DB4013", "#F2F2F2"],
-			id: uuidv4(),
+			id: 4,
 			active: false,
 		},
 		{
@@ -52,7 +52,7 @@ function chillHop() {
 			artist: "Aso, Middle School, Aviino",
 			audio: "https://mp3.chillhop.com/serve.php/?mp3=10075",
 			color: ["#205950", "#2ab3bf"],
-			id: uuidv4(),
+			id: 5,
 			active: false,
 		},
 		{
@@ -62,7 +62,7 @@ function chillHop() {
 			artist: "Ian Ewing, Strehlow",
 			audio: "https://mp3.chillhop.com/serve.php/?mp3=9272",
 			color: ["#EF8EA9", "#ab417f"],
-			id: uuidv4(),
+			id: 6,
 			active: false,
 		},
 		{
@@ -72,7 +72,7 @@ function chillHop() {
 			artist: "Aiguille",
 			audio: "https://mp3.chillhop.com/serve.php/?mp3=9363",
 			color: ["#A94949", "#FDF1DB"],
-			id: uuidv4(),
+			id: 7,
 			active: false
 		},
 		

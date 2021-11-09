@@ -13,7 +13,26 @@
 	h2 {
 		padding: 2rem;
 	}
+	
 } 
+
+.library-search {
+	margin-bottom: 2rem;
+	width: 19rem;
+
+	svg {
+		margin-left: 10%;
+	}
+	input {
+		border: 0rem solid;
+		outline: none;
+		border-radius: 5px;
+		font-size: 1rem;
+		font-weight: 600;
+		padding: 0.5rem;
+		width: 15rem;
+	}
+}
 
 .library-song {
 	display: flex;
