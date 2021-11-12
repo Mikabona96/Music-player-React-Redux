@@ -1,25 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Library from './components/Library';
 import Player from './components/Player';
 import Song from './components/Song';
 import "./styles/app.scss";
 import data from './data'
 import Nav from './components/Nav'
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 
 
 const App = () => {
-
 	const audioRef = useRef(null)
+	const dispatch = useDispatch()
+	
+	const useData = () =>{
+		const songs = useSelector(state => state.songs)
+		const currentSong = useSelector(state => state.currentSong)
+		const isPlaying = useSelector(state => state.isPlaying)
+		const songInfo = useSelector(state => state.songInfo)
+		const libraryStatus = useSelector(state => state.libraryStatus)
+		const term = useSelector(state => state.term)
+		
+		return {songs, currentSong, isPlaying, songInfo, libraryStatus, term}
+	}
 
-	const [songs, setSongs] = useState(data());
-	const [currentSong, setCurrentSong] = useState(JSON.parse(localStorage.getItem('song')) ? JSON.parse(localStorage.getItem('song')) : songs[0]);
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [songInfo, setSongInfo] = useState({
-		currentTime: 0,
-		duration: 0,
-		animationPercentage: 0
-	})
-	const [libraryStatus, setLibraryStatus] = useState(false)
+	const {songs, currentSong, isPlaying, songInfo, libraryStatus} = useData();
 
 	const timeUpdateHandler = (e) => {
 		const current = e.target.currentTime
@@ -27,72 +33,45 @@ const App = () => {
 		const roundedCurrent = Math.round(current)
 		const roundedDuration = Math.round(duration)
 		const animation = Math.round((roundedCurrent / roundedDuration) * 100)
-		setSongInfo({
-			...songInfo,
-			currentTime: current,
-			duration,
-			animationPercentage: animation
+	
+		dispatch({type: 'SET_SONG_INFO', payload: {
+				...songInfo,
+				currentTime: current,
+				duration,
+				animationPercentage: animation
+			}
 		})
 	}
 
 	const songEndHandler = async () => {
 		let currentIndex = songs.findIndex((song) => song.id === currentSong.id)
-		await setCurrentSong(songs[(currentIndex + 1) % songs.length])
+		await dispatch({type: 'SET_CURRENT_SONG', payload: songs[(currentIndex + 1) % songs.length]})
 		if (isPlaying) audioRef.current.play()
 	}
 
-	//Search in Lib
 
-	const search = (items, term) => {
-		if (term.length === 0) {
-			return items;
-		}
-
-		return items.filter((item) => {
-			return (item.name.toLowerCase().indexOf(term.toLowerCase()) > -1 || item.artist.toLowerCase().indexOf(term.toLowerCase()) > -1);
-		})
-	}
-
-	const [term, setTerm] = useState('')
-	const visibleItems = search(songs, term)
-
-	
 	useEffect(() => {
-		const songsData = data();
-		songsData.find(song => song.id === currentSong.id).active = true;
-		setSongs(songsData)
-	}, [term, currentSong])
+		dispatch({type: 'SET_SONGS', payload: data()})
 
-	// console.log(songs, 'songs')
-	// console.log(currentSong, 'currentSong')
+		dispatch({
+			type: 'SET_CURRENT_SONG', 
+			payload: JSON.parse(localStorage.getItem('song')) ? JSON.parse(localStorage.getItem('song')) : data()[0]
+		})
+		dispatch({type: 'SET_SONG_INFO', payload: {
+				currentTime: 0,
+				duration: 0,
+				animationPercentage: 0
+			}
+		})
 
+	}, [dispatch])
 
 	return (
 		<div className={`App ${libraryStatus ? 'library-active' : ''}`}>
-			<Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus}/>
-			<Song currentSong={currentSong} setLibraryStatus={setLibraryStatus} />
-			<Player
-				songInfo={songInfo}
-				setSongInfo={setSongInfo}
-				audioRef={audioRef} 
-				isPlaying={isPlaying} 
-				setIsPlaying={setIsPlaying} 
-				currentSong={currentSong} 
-				songs={visibleItems}
-				setCurrentSong={setCurrentSong} 
-				setSongs={setSongs}
-			/>
-			<Library
-				currentSong={currentSong}
-				term={term} 
-				setTerm={setTerm}
-				songs={visibleItems} 
-				setCurrentSong={setCurrentSong} 
-				audioRef={audioRef} 
-				isPlaying={isPlaying}
-				setSongs={setSongs}
-				libraryStatus={libraryStatus}
-			/>
+			<Nav />
+			<Song />
+			<Player audioRef={audioRef} />
+			<Library audioRef={audioRef} />
 			<audio 
 				onLoadedMetadata={timeUpdateHandler}
 				onTimeUpdate={timeUpdateHandler} 

@@ -8,23 +8,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { playAudio } from "../util";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-const Player = ({
-  isPlaying,
-  setIsPlaying,
-  audioRef,
-  songInfo,
-  setSongInfo,
-  currentSong,
-  songs,
-  setCurrentSong,
-  setSongs,
-}) => {
+const Player = ({audioRef}) => {
+
+  const dispatch = useDispatch()
+
+  const useGetState = () => {
+    const songs = useSelector(state => state.songs)
+    const songInfo = useSelector(state => state.songInfo)
+    const currentSong = useSelector(state => state.currentSong)
+    const isPlaying = useSelector(state => state.isPlaying)
+    return {songs, songInfo, currentSong, isPlaying}
+  }
+
+  const {songs, songInfo, currentSong, isPlaying} = useGetState()
   //UseEffect Update List
   const activeLibraryHandler = (nextPrev) => {
     const newSongs = songs.map((song) => {
       if (song.id === nextPrev.id) {
-	  localStorage.setItem('song', JSON.stringify(song))
+	    localStorage.setItem('song', JSON.stringify(song))
         return {
           ...song,
           active: true,
@@ -37,8 +41,9 @@ const Player = ({
       }
     });
 
-    setSongs(newSongs);
+    dispatch({type: 'SET_SONGS', payload: newSongs})
   };
+
 
   const trackAnim = {
     transform: `translateX(${songInfo.animationPercentage}%)`,
@@ -51,16 +56,16 @@ const Player = ({
   }
   const dragHandler = (e) => {
     audioRef.current.currentTime = e.target.value;
-    setSongInfo({ ...songInfo, currentTime: e.target.value });
+    dispatch({type: 'SET_SONG_INFO', payload: {...songInfo, currentTime: e.target.value}})
   };
 
   const playSongHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
-      setIsPlaying(!isPlaying);
+      dispatch({type: 'IS_PLAYING', payload: !isPlaying})
     } else {
       audioRef.current.play();
-      setIsPlaying(!isPlaying);
+      dispatch({type: 'IS_PLAYING', payload: !isPlaying})
     }
   };
   const skipTrackHandler = async (direction) => {
@@ -68,31 +73,47 @@ const Player = ({
 
     //Forward BAck
     if (direction === "skip-forward") {
-      await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+      await dispatch({
+        type: 'SET_CURRENT_SONG', 
+        payload: songs[(currentIndex + 1) % songs.length]
+      })
       activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
     }
+
     if (direction === "skip-back") {
       if ((currentIndex - 1) % songs.length === -1) {
-        await setCurrentSong(songs[songs.length - 1]);
+        await dispatch({
+          type: 'SET_CURRENT_SONG', 
+          payload: songs[songs.length - 1]
+        })
         activeLibraryHandler(songs[songs.length - 1]);
         playAudio(isPlaying, audioRef);
         return;
       }
-      await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+      await dispatch({
+          type: 'SET_CURRENT_SONG', 
+          payload: songs[(currentIndex - 1) % songs.length]
+        })
       activeLibraryHandler(songs[(currentIndex - 1) % songs.length]);
     }
     if (isPlaying) audioRef.current.play();
   };
  
 
+  // const color = currentSong.color
+  // console.log(color)
+
+  const style = {
+      background: currentSong.color !== undefined ? `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})` : '#51C0E4',
+      // background: currentSong.color !== undefined ? currentSong.color[0] : '#51C0E4',
+  }
+
   return (
     <div className="player">
       <div className="time-control">
         <p>{getTime(songInfo.currentTime)}</p>
         <div
-          style={{
-            background: `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`,
-          }}
+          style={style}
           className="track"
         >
           <input

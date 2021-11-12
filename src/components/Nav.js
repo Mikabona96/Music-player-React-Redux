@@ -1,11 +1,25 @@
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import library from './library.svg'
 
+const Nav = () => {
 
-const Nav = ({setLibraryStatus, libraryStatus}) => {
+	const dispatch = useDispatch()
+
+	const useGetSelector = () => {
+		const libraryStatus = useSelector(state => state.libraryStatus)
+		
+		return libraryStatus
+	}
+
+	const libraryStatus = useGetSelector()
+
 	return (
 		<nav className="nav">
 			<h1>Waves</h1>
-			<div onClick={() => setLibraryStatus(!libraryStatus)}>
+			<div onClick={() => {
+				dispatch({type: 'SET_LIBRARY_STATUS', payload: !libraryStatus})
+			}}>
 				<img 
 				src={library} 
 				style={libraryStatus ? {

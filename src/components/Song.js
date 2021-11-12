@@ -1,7 +1,21 @@
-const Song = ({currentSong, setLibraryStatus}) => {
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+
+const Song = () => {
+	const dispatch = useDispatch()
+
+	const useGetSelector = () => {
+		const currentSong = useSelector(state => state.currentSong)
+		const libraryStatus = useSelector(state => state.libraryStatus)
+		
+		return {currentSong, libraryStatus}
+	}
+
+	const {currentSong} = useGetSelector()
+
 	const closeLibraryHandler = (e) => {
 		if (e.target.classList.contains('song-container')) {
-			setLibraryStatus(false)
+			dispatch({type: 'SET_LIBRARY_STATUS', payload: false})
 		}
 	}
 	return (
