@@ -20,9 +20,9 @@ const App = () => {
 		const isPlaying = useSelector(state => state.isPlaying)
 		const songInfo = useSelector(state => state.songInfo)
 		const libraryStatus = useSelector(state => state.libraryStatus)
-		const term = useSelector(state => state.term)
+		const searchInputValue = useSelector(state => state.searchInputValue)
 		
-		return {songs, currentSong, isPlaying, songInfo, libraryStatus, term}
+		return {songs, currentSong, isPlaying, songInfo, libraryStatus, searchInputValue}
 	}
 
 	const {songs, currentSong, isPlaying, songInfo, libraryStatus} = useData();

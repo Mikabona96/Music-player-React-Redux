@@ -8,9 +8,7 @@ const initialState = {
 		animationPercentage: 0
 	},
 	libraryStatus: false,
-	timeUpdateHandler: () => {},
-	songEndHandler: () => {},
-	term: '',
+	searchInputValue: '',
 	ref: null,
 	visibleSongs: []
 }
@@ -47,20 +45,10 @@ const Reducer = (state = initialState, action) => {
 				...state,
 				libraryStatus: action.payload
 			}
-		case "SET_TIME_UPDATE_HANDLER":
+		case "SET_SEARCH_INPUT_VALUE":
 			return {
 				...state,
-				timeUpdateHandler: action.payload
-			}
-		case "SET_SONG_END_HANDLER":
-			return {
-				...state,
-				songEndHandler: action.payload
-			}
-		case "SET_TERM":
-			return {
-				...state,
-				term: action.payload
+				searchInputValue: action.payload
 			}
 		case "SET_REF":
 			return {

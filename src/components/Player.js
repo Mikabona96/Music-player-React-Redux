@@ -100,12 +100,8 @@ const Player = ({audioRef}) => {
   };
  
 
-  // const color = currentSong.color
-  // console.log(color)
-
   const style = {
       background: currentSong.color !== undefined ? `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})` : '#51C0E4',
-      // background: currentSong.color !== undefined ? currentSong.color[0] : '#51C0E4',
   }
 
   return (
