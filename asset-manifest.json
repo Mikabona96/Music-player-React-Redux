@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/Music-player-React-Redux/static/css/main.174312c9.chunk.css",
-    "main.js": "/Music-player-React-Redux/static/js/main.78dfa1e1.chunk.js",
-    "main.js.map": "/Music-player-React-Redux/static/js/main.78dfa1e1.chunk.js.map",
+    "main.css": "/Music-player-React-Redux/static/css/main.6db92da0.chunk.css",
+    "main.js": "/Music-player-React-Redux/static/js/main.e4c0b02b.chunk.js",
+    "main.js.map": "/Music-player-React-Redux/static/js/main.e4c0b02b.chunk.js.map",
     "runtime-main.js": "/Music-player-React-Redux/static/js/runtime-main.fb301206.js",
     "runtime-main.js.map": "/Music-player-React-Redux/static/js/runtime-main.fb301206.js.map",
-    "static/js/2.f53348cb.chunk.js": "/Music-player-React-Redux/static/js/2.f53348cb.chunk.js",
-    "static/js/2.f53348cb.chunk.js.map": "/Music-player-React-Redux/static/js/2.f53348cb.chunk.js.map",
+    "static/js/2.b9b08a20.chunk.js": "/Music-player-React-Redux/static/js/2.b9b08a20.chunk.js",
+    "static/js/2.b9b08a20.chunk.js.map": "/Music-player-React-Redux/static/js/2.b9b08a20.chunk.js.map",
     "index.html": "/Music-player-React-Redux/index.html",
-    "static/css/main.174312c9.chunk.css.map": "/Music-player-React-Redux/static/css/main.174312c9.chunk.css.map",
-    "static/js/2.f53348cb.chunk.js.LICENSE.txt": "/Music-player-React-Redux/static/js/2.f53348cb.chunk.js.LICENSE.txt",
+    "static/css/main.6db92da0.chunk.css.map": "/Music-player-React-Redux/static/css/main.6db92da0.chunk.css.map",
+    "static/js/2.b9b08a20.chunk.js.LICENSE.txt": "/Music-player-React-Redux/static/js/2.b9b08a20.chunk.js.LICENSE.txt",
     "static/media/Dua.db06e01d.mp3": "/Music-player-React-Redux/static/media/Dua.db06e01d.mp3",
     "static/media/Harris.4e3c3283.mp3": "/Music-player-React-Redux/static/media/Harris.4e3c3283.mp3",
     "static/media/KALEO.ee224ca1.mp3": "/Music-player-React-Redux/static/media/KALEO.ee224ca1.mp3",
+    "static/media/exit.96711cae.svg": "/Music-player-React-Redux/static/media/exit.96711cae.svg",
     "static/media/library.d3cbb3c0.svg": "/Music-player-React-Redux/static/media/library.d3cbb3c0.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.fb301206.js",
-    "static/js/2.f53348cb.chunk.js",
-    "static/css/main.174312c9.chunk.css",
-    "static/js/main.78dfa1e1.chunk.js"
+    "static/js/2.b9b08a20.chunk.js",
+    "static/css/main.6db92da0.chunk.css",
+    "static/js/main.e4c0b02b.chunk.js"
   ]
 }
